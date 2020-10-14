@@ -24,9 +24,9 @@ class ContainerWidget extends StatelessWidget {
     return Center(
       child: Container(
         // largura
-        width: 300.0,
+        width: double.infinity,
         // altura
-        height: 300.0,
+        height: double.infinity,
         // cor
         color: Colors.yellow,
         // alinhamento do filho
@@ -78,24 +78,19 @@ class ColumWidget extends StatelessWidget {
       // alinha os Widget e não as colunas 
       crossAxisAlignment:  CrossAxisAlignment.start,
       children: [
-        Container(
-          color: Colors.red,
-          // para fazer o container ocupar toda largura use isso
-          width: double.infinity,
-          height: 50.0,
-        ),
-        Container(
-          color: Colors.blue,
-          width: 50.0,
-          height: 50.0,
-        ),
+        ContainerTransformWidget(),
         ButtonIcon(),
-        ButtonText()
+        ButtonText(),
+        ButtonTextPadding(),
+        BorderRadiusWidget(),
+        BorderShadowWidget()
+
       ],
     );
   }
 }
 
+// button feito com container e icone
 class ButtonIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -108,6 +103,7 @@ class ButtonIcon extends StatelessWidget {
   }
 }
 
+// button feito com container e text
 class ButtonText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -119,3 +115,101 @@ class ButtonText extends StatelessWidget {
         child: TextWidget());
   }
 }
+
+// button feito com container, texto e padding para espaçamento externo (semelhante ao margin do css)
+class ButtonTextPadding extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        alignment: Alignment.center,
+        width: 150.0,
+        height: 50.0,
+        color: Colors.purple,
+        child: TextWidget()),
+    );
+  }
+}
+
+// sizedBox
+// Sizedbox é focado em ter um tamanho especifico 
+class SizedBoxWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // Sizedbox é focado em ter um tamanho especifico 
+    return SizedBox(height: 20, width: double.infinity,);
+  }
+}
+
+
+// fazendo transformações no container, como animações 
+class ContainerTransformWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30.0),
+      child: Container(
+        // transform serve para fazer animações
+        transform: Matrix4.identity()..scale(0.9)..translate(50.0, 0.0),
+        width: double.infinity,
+        height: 50,
+        color: Colors.green[100],
+        alignment: Alignment.center,
+        child: Text("ContainerTransformWidget", style: TextStyle(color: Colors.white, fontSize: 18),)
+      ),
+      );
+  }
+}
+
+// BorderRadius and Decoration 
+class BorderRadiusWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.green[300],
+          borderRadius: BorderRadius.circular(30.0)
+          
+          ),
+        width: double.infinity,
+        height: 50,
+        // color: Colors.green[100],
+        alignment: Alignment.center,
+        child: Text("ContainerTransformWidget", style: TextStyle(color: Colors.white, fontSize: 18),)
+      ),
+      );
+  }
+}
+
+// BoxShadow and Decoration 
+class BorderShadowWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.green[300],
+          borderRadius: BorderRadius.circular(30.0),
+          boxShadow: <BoxShadow>[
+             BoxShadow(
+               color: Colors.black.withOpacity(0.5),
+               offset: Offset(3.0, 5.0),
+               blurRadius: 10.0
+               ),
+          ]
+          ),
+        width: double.infinity,
+        height: 50,
+        // color: Colors.green[100],
+        alignment: Alignment.center,
+        child: Text("ContainerTransformWidget", style: TextStyle(color: Colors.white, fontSize: 18),)
+      ),
+      );
+  }
+}
+
+
